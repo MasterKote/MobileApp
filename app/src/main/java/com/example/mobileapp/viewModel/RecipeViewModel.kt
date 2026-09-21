@@ -10,14 +10,14 @@ class RecipeViewModel: ViewModel() {
     fun fetchRecipe () {
         viewModelScope.launch {
             try {
-                val response = RetrofitClient.apiService.getRecipes()
+                val response = RetrofitClient.apiServiceRecipes.getRecipes()
 
                 for (recipe in response.recipes) {
-                    Log.d("RetrofitLog", "Название: ${recipe.name} " + "Время готовки: ${recipe.cookTimeMinutes} " + "Сложность: ${recipe.difficulty}")
+                    Log.d("RecipeLog", "Название: ${recipe.name} " + "Время готовки: ${recipe.cookTimeMinutes} " + "Сложность: ${recipe.difficulty}")
                 }
             }
             catch (ex: Exception) {
-                Log.e("RetrofitError", "Ошибка при запросе: ${ex.message}")
+                Log.e("RetrofitError", ex.message.toString())
             }
         }
     }

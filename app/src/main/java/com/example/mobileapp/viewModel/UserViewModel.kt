@@ -11,19 +11,15 @@ class UserViewModel: ViewModel() {
     fun addUser(user: User) {
         viewModelScope.launch {
             try {
-                val response = RetrofitClient.apiService.createUser(user)
+                val response = RetrofitClient.apiServiceUsers.createUser(user)
 
                 Log.d(
                     "UserLog",
-                    "ID: ${response.id} | " +
-                            "Имя: ${response.firstName} | " +
-                            "Фамилия: ${response.lastName} | " +
-                            "Возраст: ${response.age} | " +
-                            "Волосы: ${response.hair.color}, ${response.hair.type}"
+                    "Имя: ${response.firstName} " + "Фамилия: ${response.lastName} " + "Возраст: ${response.age} " + "Волосы: ${response.hair.color}, ${response.hair.type}"
                 )
 
-            } catch (e: Exception) {
-                Log.e("RetrofitError", e.message.toString())
+            } catch (ex: Exception) {
+                Log.e("RetrofitError", ex.message.toString())
             }
         }
     }

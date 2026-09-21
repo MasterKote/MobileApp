@@ -1,6 +1,6 @@
 package com.example.mobileapp.data.model
 
-data class Recipes(
+data class Recipe(
     val id: Int,
     val name: String,
     val cookTimeMinutes: Int,
