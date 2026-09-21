@@ -1,8 +1,9 @@
-package com.example.mobileapp
+package com.example.mobileapp.viewModel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mobileapp.data.RetrofitClient
 import kotlinx.coroutines.launch
 
 class RecipeViewModel: ViewModel() {

@@ -1,4 +1,4 @@
-package com.example.mobileapp
+package com.example.mobileapp.data
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -16,15 +16,17 @@ object RetrofitClient {
 
     val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
-        .proxy(proxy)
+        //.proxy(proxy)
+        .build()
+
+    val retrofitClient = Retrofit.Builder()
+        .baseUrl("https://dummyjson.com/")
+        .client(okHttpClient)
+        .addConverterFactory(GsonConverterFactory.create())
         .build()
 
     val apiService: ApiService by lazy {
-        Retrofit.Builder()
-            .baseUrl("https://dummyjson.com/")
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        retrofitClient
             .create(ApiService::class.java)
     }
 }
