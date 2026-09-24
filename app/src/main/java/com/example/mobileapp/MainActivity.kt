@@ -6,11 +6,13 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.mobileapp.data.model.Post
 import com.example.mobileapp.data.model.User
 import com.example.mobileapp.data.model.UserHair
 import com.example.mobileapp.ui.theme.MobileAppTheme
-import com.example.mobileapp.viewModel.RecipeViewModel
-import com.example.mobileapp.viewModel.UserViewModel
+import com.example.mobileapp.ui.viewModel.PostViewModel
+import com.example.mobileapp.ui.viewModel.RecipeViewModel
+import com.example.mobileapp.ui.viewModel.UserViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,10 +20,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MobileAppTheme {
-                val postViewModel: RecipeViewModel = viewModel()
+                val recipeViewModel: RecipeViewModel = viewModel()
 
                 LaunchedEffect(Unit) {
-                    postViewModel.fetchRecipe()
+                    recipeViewModel.fetchRecipe()
                 }
 
                 val userViewModel: UserViewModel = viewModel()
@@ -40,6 +42,23 @@ class MainActivity : ComponentActivity() {
 
                 LaunchedEffect(Unit) {
                     userViewModel.addUser(user)
+                }
+
+                val postViewModel: PostViewModel = viewModel()
+
+                LaunchedEffect(Unit) {
+                    postViewModel.GetPost()
+                }
+
+                val post = Post(
+                    title = "Уют в каждой детали: встречайте нашу новинку!",
+                    body = "Мы знаем, как важно возвращаться туда, где тепло и спокойно. Наша новая коллекция ароматических свечей из соевого воска создана именно для таких моментов.",
+                    tags = listOf("декор дома", "уют в доме", "аромасвечи", "подарок девушке", "ручная работа", "новинка"),
+                    views = 0
+                )
+
+                LaunchedEffect(Unit) {
+                    postViewModel.UpdatePost(post)
                 }
 //                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 //                    Greeting(

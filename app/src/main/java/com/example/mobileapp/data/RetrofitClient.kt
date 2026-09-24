@@ -1,5 +1,6 @@
 package com.example.mobileapp.data
 
+import com.example.mobileapp.data.ApiServices.ApiServicePosts
 import com.example.mobileapp.data.ApiServices.ApiServiceRecipes
 import com.example.mobileapp.data.ApiServices.ApiServiceUsers
 import okhttp3.OkHttpClient
@@ -35,5 +36,10 @@ object RetrofitClient {
     val apiServiceRecipes: ApiServiceRecipes by lazy {
         retrofitClient
             .create(ApiServiceRecipes::class.java)
+    }
+
+    val apiServicePosts: ApiServicePosts by lazy {
+        retrofitClient
+            .create(ApiServicePosts::class.java)
     }
 }
