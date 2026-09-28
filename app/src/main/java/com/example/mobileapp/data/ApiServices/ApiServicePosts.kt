@@ -4,11 +4,12 @@ import com.example.mobileapp.data.model.Post
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PUT
+import retrofit2.http.Path
 
 interface ApiServicePosts {
-    @GET("posts/45")
-    suspend fun getPost(): Post
+    @GET("posts/{id}")
+    suspend fun getPost(@Path("id") id: Int): Post
 
-    @PUT("posts/45")
-    suspend fun updatePost(@Body post: Post): Post
+    @PUT("posts/{id}")
+    suspend fun updatePost(@Path("id") id: Int, @Body post: Post): Post
 }

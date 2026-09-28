@@ -13,6 +13,7 @@ import com.example.mobileapp.ui.theme.MobileAppTheme
 import com.example.mobileapp.ui.viewModel.PostViewModel
 import com.example.mobileapp.ui.viewModel.RecipeViewModel
 import com.example.mobileapp.ui.viewModel.UserViewModel
+import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,18 +48,16 @@ class MainActivity : ComponentActivity() {
                 val postViewModel: PostViewModel = viewModel()
 
                 LaunchedEffect(Unit) {
-                    postViewModel.GetPost()
-                }
+                    postViewModel.getPost(45)
 
-                val post = Post(
-                    title = "Уют в каждой детали: встречайте нашу новинку!",
-                    body = "Мы знаем, как важно возвращаться туда, где тепло и спокойно. Наша новая коллекция ароматических свечей из соевого воска создана именно для таких моментов.",
-                    tags = listOf("декор дома", "уют в доме", "аромасвечи", "подарок девушке", "ручная работа", "новинка"),
-                    views = 0
-                )
+                    val post = postViewModel.cachedPost!!.copy(
+                        title = "Уют в каждой детали: встречайте нашу новинку!",
+                        body = "Мы знаем, как важно возвращаться туда, где тепло и спокойно. Наша новая коллекция ароматических свечей из соевого воска создана именно для таких моментов.",
+                        tags = listOf("декор дома", "уют в доме", "аромасвечи", "подарок девушке", "ручная работа", "новинка"),
+                        views = 0
+                    )
 
-                LaunchedEffect(Unit) {
-                    postViewModel.UpdatePost(post)
+                    postViewModel.updatePost(post)
                 }
 //                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 //                    Greeting(

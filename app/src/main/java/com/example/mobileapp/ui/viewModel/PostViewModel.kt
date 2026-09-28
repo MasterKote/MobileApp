@@ -8,23 +8,25 @@ import com.example.mobileapp.data.model.Post
 import kotlinx.coroutines.launch
 
 class PostViewModel: ViewModel() {
-    fun GetPost()
+    var cachedPost: Post? = null
+    suspend fun getPost(id: Int)
     {
-        viewModelScope.launch {
             try {
-                val response = RetrofitClient.apiServicePosts.getPost()
+                val response = RetrofitClient.apiServicePosts.getPost(id)
+
+                cachedPost = response
 
                 Log.d("PostLogBefore", "ID: ${response.id} " + "Название: ${response.title} " + "Текст: ${response.body} " + "Тэги: ${response.tags} " + "Кол-во просмотров: ${response.views}")
             } catch (e: Exception) {
                 Log.e("RetrofitError", e.message.toString())
             }
-        }
     }
 
-    fun UpdatePost(post: Post){
+    fun updatePost(post: Post){
         viewModelScope.launch {
             try {
-                val response = RetrofitClient.apiServicePosts.updatePost(post)
+                val cachedPostUpdate = cachedPost!!.id!!
+                val response = RetrofitClient.apiServicePosts.updatePost(cachedPostUpdate, post)
 
                 Log.d("PostLogAfter", "ID: ${response.id} " + "Название: ${response.title} " + "Текст: ${response.body} " + "Тэги: ${response.tags} " + "Кол-во просмотров: ${response.views}")
             } catch (e: Exception) {
