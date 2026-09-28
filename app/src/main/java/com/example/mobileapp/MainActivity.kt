@@ -48,16 +48,7 @@ class MainActivity : ComponentActivity() {
                 val postViewModel: PostViewModel = viewModel()
 
                 LaunchedEffect(Unit) {
-                    postViewModel.getPost(45)
-
-                    val post = postViewModel.cachedPost!!.copy(
-                        title = "Уют в каждой детали: встречайте нашу новинку!",
-                        body = "Мы знаем, как важно возвращаться туда, где тепло и спокойно. Наша новая коллекция ароматических свечей из соевого воска создана именно для таких моментов.",
-                        tags = listOf("декор дома", "уют в доме", "аромасвечи", "подарок девушке", "ручная работа", "новинка"),
-                        views = 0
-                    )
-
-                    postViewModel.updatePost(post)
+                    postViewModel.updatePost()
                 }
 //                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 //                    Greeting(

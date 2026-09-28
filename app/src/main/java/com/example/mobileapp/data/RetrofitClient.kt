@@ -19,7 +19,7 @@ object RetrofitClient {
 
     val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
-        .proxy(proxy)
+        //.proxy(proxy)
         .build()
 
     val retrofitClient = Retrofit.Builder()
