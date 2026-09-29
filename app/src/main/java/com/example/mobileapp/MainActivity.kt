@@ -12,6 +12,7 @@ import com.example.mobileapp.data.model.UserHair
 import com.example.mobileapp.ui.theme.MobileAppTheme
 import com.example.mobileapp.ui.viewModel.PostViewModel
 import com.example.mobileapp.ui.viewModel.RecipeViewModel
+import com.example.mobileapp.ui.viewModel.TodoViewModel
 import com.example.mobileapp.ui.viewModel.UserViewModel
 import kotlinx.coroutines.delay
 
@@ -21,34 +22,40 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MobileAppTheme {
-                val recipeViewModel: RecipeViewModel = viewModel()
+//                val recipeViewModel: RecipeViewModel = viewModel()
+//
+//                LaunchedEffect(Unit) {
+//                    recipeViewModel.fetchRecipe()
+//                }
+//
+//                val userViewModel: UserViewModel = viewModel()
+//
+//                val userHair = UserHair(
+//                    color = "Темные",
+//                    type = "Кудрявые"
+//                )
+//
+//                val user = User(
+//                    firstName = "Ирина",
+//                    lastName = "Воронова",
+//                    age = 29,
+//                    hair = userHair
+//                )
+//
+//                LaunchedEffect(Unit) {
+//                    userViewModel.addUser(user)
+//                }
+//
+//                val postViewModel: PostViewModel = viewModel()
+//
+//                LaunchedEffect(Unit) {
+//                    postViewModel.updatePost()
+//                }
+
+                val todoViewModel: TodoViewModel = viewModel()
 
                 LaunchedEffect(Unit) {
-                    recipeViewModel.fetchRecipe()
-                }
-
-                val userViewModel: UserViewModel = viewModel()
-
-                val userHair = UserHair(
-                    color = "Темные",
-                    type = "Кудрявые"
-                )
-
-                val user = User(
-                    firstName = "Ирина",
-                    lastName = "Воронова",
-                    age = 29,
-                    hair = userHair
-                )
-
-                LaunchedEffect(Unit) {
-                    userViewModel.addUser(user)
-                }
-
-                val postViewModel: PostViewModel = viewModel()
-
-                LaunchedEffect(Unit) {
-                    postViewModel.updatePost()
+                    todoViewModel.deleteTodo()
                 }
 //                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 //                    Greeting(

@@ -2,6 +2,7 @@ package com.example.mobileapp.data
 
 import com.example.mobileapp.data.ApiServices.ApiServicePosts
 import com.example.mobileapp.data.ApiServices.ApiServiceRecipes
+import com.example.mobileapp.data.ApiServices.ApiServiceTodo
 import com.example.mobileapp.data.ApiServices.ApiServiceUsers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -19,7 +20,7 @@ object RetrofitClient {
 
     val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
-        //.proxy(proxy)
+        .proxy(proxy)
         .build()
 
     val retrofitClient = Retrofit.Builder()
@@ -41,5 +42,10 @@ object RetrofitClient {
     val apiServicePosts: ApiServicePosts by lazy {
         retrofitClient
             .create(ApiServicePosts::class.java)
+    }
+
+    val apiServiceTodo: ApiServiceTodo by lazy {
+        retrofitClient
+            .create(ApiServiceTodo::class.java)
     }
 }
