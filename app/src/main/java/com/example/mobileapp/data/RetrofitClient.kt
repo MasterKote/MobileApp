@@ -1,5 +1,6 @@
 package com.example.mobileapp.data
 
+import com.example.mobileapp.data.ApiServices.ApiServiceLogin
 import com.example.mobileapp.data.ApiServices.ApiServicePosts
 import com.example.mobileapp.data.ApiServices.ApiServiceRecipes
 import com.example.mobileapp.data.ApiServices.ApiServiceTodo
@@ -29,6 +30,12 @@ object RetrofitClient {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
+    val retrofitSwagger: Retrofit = Retrofit.Builder()
+        .baseUrl("http://10.207.106.59:8090/api/collections/")
+        .client(okHttpClient)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
     val apiServiceUsers: ApiServiceUsers by lazy {
         retrofitClient
             .create(ApiServiceUsers::class.java)
@@ -48,4 +55,7 @@ object RetrofitClient {
         retrofitClient
             .create(ApiServiceTodo::class.java)
     }
+
+    val loginAPI: ApiServiceLogin = retrofitSwagger.create(ApiServiceLogin::class.java)
+    val postsAPI: ApiServicePosts = retrofitSwagger.create(ApiServicePosts::class.java)
 }

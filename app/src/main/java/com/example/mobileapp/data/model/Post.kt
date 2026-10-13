@@ -1,9 +1,9 @@
 package com.example.mobileapp.data.model
 
 data class Post(
-    val id: Int? = null,
-    val title: String,
-    val body: String,
-    val tags: List<String>,
-    val views: Int
+    val id: String,
+    val title: String? = null,
+    val body: String? = null,
+    val created: String? = null,
+    val updated: String? = null
 )

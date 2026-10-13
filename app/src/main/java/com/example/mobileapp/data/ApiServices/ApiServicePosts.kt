@@ -1,16 +1,21 @@
 package com.example.mobileapp.data.ApiServices
 
 import com.example.mobileapp.data.model.Post
+import com.example.mobileapp.data.model.Posts
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface ApiServicePosts {
-    @GET("posts/{id}")
-    suspend fun getPost(@Path("id") id: Int): Post
+    //@GET("posts/{id}")
+    //suspend fun getPost(@Path("id") id: Int): Post
 
-    @PUT("posts/{id}")
-    suspend fun updatePost(@Path("id") id: Int, @Body post: Post): Post
+    //@PUT("posts/{id}")
+    //suspend fun updatePost(@Path("id") id: Int, @Body post: Post): Post
+
+    @GET("posts/records")
+    suspend fun getPosts(@Header("Authorization") token: String): Posts
 }

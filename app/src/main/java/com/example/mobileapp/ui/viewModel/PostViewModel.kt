@@ -4,37 +4,41 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mobileapp.data.RetrofitClient
-import com.example.mobileapp.data.model.Post
-import com.example.mobileapp.data.ApiServices.ApiServicePosts
+import com.example.mobileapp.data.TokenManager
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-class PostViewModel : ViewModel() {
+class PostViewModel(private val tokenManager: TokenManager) : ViewModel() {
 
-    fun updatePost() {
+    fun fetch() {
         viewModelScope.launch {
+            val token = tokenManager.tokenFlow().first()
             try {
-                val id = 45
-
-                val postBefore = RetrofitClient.apiServicePosts.getPost(id)
-
-                Log.d(
-                    "BeforeUpdate", "ID: ${postBefore.id} Название: ${postBefore.title} Текст: ${postBefore.body} Теги: ${postBefore.tags.joinToString(", ")} Просмотры: ${postBefore.views}"
-                )
-
-                val post = postBefore.copy(
-                    title = "Уют в каждой детали: встречайте нашу новинку!",
-                    body = "Мы знаем, как важно возвращаться туда, где тепло и спокойно. Наша новая коллекция ароматических свечей из соевого воска создана именно для таких моментов.",
-                    tags = listOf("декор дома", "уют в доме", "аромасвечи", "подарок девушке", "ручная работа", "новинка"),
-                    views = 0
-                )
-
-                val postAfter =
-                    RetrofitClient.apiServicePosts.updatePost(id, post)
-
-                Log.d("AfterUpdate", "ID: ${postAfter.id} Название: ${postAfter.title} Текст: ${postAfter.body} Теги: ${postAfter.tags.joinToString(", ")} Просмотры: ${postAfter.views}")
-
-            } catch (e: Exception) {
-                Log.e("RetrofitError", e.message.toString())
+                if (!token.isNullOrEmpty()) {
+                    val posts = RetrofitClient.postsAPI.getPosts(token)
+                    val items = posts.items
+                    if (items != null) {
+                        for (item in items) {
+                            Log.d(
+                                "PostViewModel",
+                                "id: ${item.id}\n" +
+                                        "title: ${item.title}\n" +
+                                        "body: ${item.body}\n" +
+                                        "created: ${item.created}\n" +
+                                        "updated: ${item.updated}"
+                            )
+                        }
+                    }
+                    Log.d(
+                        "PostViewModel",
+                        "page: ${posts.page}\n" +
+                                "perPage: ${posts.perPage}\n" +
+                                "totalItems: ${posts.totalItems}\n" +
+                                "totalPages: ${posts.totalPages}",
+                    )
+                }
+            } catch (ex: Exception) {
+                Log.e("PostViewModel", ex.message ?: "", ex)
             }
         }
     }
